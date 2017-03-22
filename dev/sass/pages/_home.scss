@@ -16,6 +16,7 @@ body {
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   padding: 1rem;
   width: 100%;
   justify-content: space-between;
@@ -26,6 +27,7 @@ body {
   }
   .actions {
     display: flex;
+    align-items: flex-start;
     justify-content: center;
 
     a {
