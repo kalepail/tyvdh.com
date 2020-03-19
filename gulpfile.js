@@ -19,7 +19,7 @@ gulp.task('css', function() {
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer({cascade: false}))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('docs/css'));
 });
 
 gulp.task('vendor-js', function() {
@@ -28,7 +28,7 @@ gulp.task('vendor-js', function() {
     .pipe(concat('application-vendor.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('docs/js'));
 });
 
 gulp.task('js', function() {
@@ -37,13 +37,13 @@ gulp.task('js', function() {
     .pipe(concat('application.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('docs/js'));
 });
 
 gulp.task('img', function() {
   return gulp.src('dev/img/**/*.{jpg,jpeg,png,gif,svg,ico}')
     .pipe(flatten())
-    .pipe(newer('public/img'))
+    .pipe(newer('docs/img'))
     .pipe(imagemin({
       optimizationLevel: 5,
       progressive: true,
@@ -54,7 +54,7 @@ gulp.task('img', function() {
         removeXMLProcInst: false
       }]
     }))
-    .pipe(gulp.dest('public/img'));
+    .pipe(gulp.dest('docs/img'));
 });
 
 gulp.task('connect', function() {
@@ -65,16 +65,16 @@ gulp.task('connect', function() {
 
   livereload.listen();
 
-  gulp.watch(['public/*.html', 'public/js/*.js', 'public/img/**/*.{jpg,jpeg,png,gif,svg,ico}', 'public/css/*.css']).on('change', livereload.changed);
+  gulp.watch(['docs/*.html', 'docs/js/*.js', 'docs/img/**/*.{jpg,jpeg,png,gif,svg,ico}', 'docs/css/*.css']).on('change', livereload.changed);
 
   connect.server({
-    root: 'public/',
+    root: 'docs/',
     port: 8000
   });
 });
 
 gulp.task('deploy', function() {
-  return gulp.src('public/**/*')
+  return gulp.src('./docs/**/*')
     .pipe(ghpages());
 });
 
